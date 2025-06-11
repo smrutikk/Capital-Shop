@@ -17,12 +17,8 @@ const Card = (props) => {
 
   const handleAddCartClick = () => {
     if (LoginSuccess === "true") {
-      dispatch(
-        CartSlice.actions.addCart({
-          id: props.product.id.toString(),
-          quantity: 1,
-        })
-      );
+      dispatch(CartSlice.actions.addCart(props.product));
+      
       toast.success("Add to cart successfully!", {
         position: "top-right",
         autoClose: 3000,

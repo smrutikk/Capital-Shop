@@ -1,5 +1,3 @@
-// Your App.jsx - This is already perfect!
-
 import { lazy, Suspense, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
@@ -20,12 +18,17 @@ const ScrollToTop = () => {
 
 // Lazy-loaded components
 const Home = lazy(() => import("./pages/Home/Home"));
-const Cart = lazy(() => import("./pages/Cart/Cart"));
-const Category = lazy(() => import("./pages/Category/Category"));
+const Cart = lazy(() => import("./pages/Cart/Cart")); // Ensure this path is correct
+const Category = lazy(() => import("./pages/Category/Category")); // Ensure this path is correct
 const ProductDetail = lazy(() => import("./pages/Product Details/ProductDetail"));
 const Register = lazy(() => import("./pages/Login/Register"));
 const Login = lazy(() => import("./pages/Login/Login"));
 const Favorites = lazy(() => import("./pages/Favorites/Favorites"));
+
+// New lazy-loaded imports for the checkout flow
+const ShippingPage = lazy(() => import("./pages/Checkout/ShippingPage"));
+const PaymentPage = lazy(() => import("./pages/Checkout/PaymentPage"));
+const OrderSuccessPage = lazy(() => import("./pages/Checkout/OrderSuccessPage"));
 
 function App() {
   const RequireAuth = ({ children }) => {
@@ -69,7 +72,7 @@ function App() {
               element={ <Suspense fallback={<Loader />}><ProductDetail /></Suspense> }
             />
             <Route
-              path="/category/:categoryName" 
+              path="/category/:id" 
               element={ <Suspense fallback={<Loader />}><Category /></Suspense> }
             />
             <Route
@@ -97,6 +100,20 @@ function App() {
             <Route
               path="/favorites"
               element={ <Suspense fallback={<Loader />}><RequireAuth><Favorites /></RequireAuth></Suspense> }
+            />
+
+            {/* NEW CHECKOUT ROUTES */}
+            <Route
+              path="/checkout/shipping"
+              element={ <Suspense fallback={<Loader />}><RequireAuth><ShippingPage /></RequireAuth></Suspense> }
+            />
+            <Route
+              path="/checkout/payment"
+              element={ <Suspense fallback={<Loader />}><RequireAuth><PaymentPage /></RequireAuth></Suspense> }
+            />
+            <Route
+              path="/order-success"
+              element={ <Suspense fallback={<Loader />}><OrderSuccessPage /></Suspense> }
             />
           </Routes>
         </main>

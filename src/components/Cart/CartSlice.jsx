@@ -9,24 +9,31 @@ export default createSlice({
   initialState,
   reducers: {
     addCart: (state, action) => {
-      const temp = state.find((item) => item.id === action.payload.id);
-      if (!temp) {
-        state.push(action.payload);
+      // action.payload is now the full product object
+      const productInCart = state.find((item) => item.id === action.payload.id);
+      if (productInCart) {
+        // If it exists, just increase the quantity
+        productInCart.quantity++;
       } else {
-        let index = state.findIndex((item) => item.id === action.payload.id);
-        state[index].quantity += action.payload.quantity;
+        // If it's a new item, add it to the cart with a quantity of 1
+        state.push({ ...action.payload, quantity: 1 });
       }
     },
     delCart: (state, action) => {
-      let index = state.findIndex((item) => item.id === action.payload.id);
-      if (index !== -1 && state[index].quantity > 1) {
-        state[index].quantity -= 1;
+      // action.payload is just the product ID here
+      const productInCart = state.find((item) => item.id === action.payload.id);
+      if (productInCart && productInCart.quantity > 1) {
+        productInCart.quantity--;
       }
     },
-    // ===== NEW: Add this reducer to completely remove an item =====
     removeItemFromCart: (state, action) => {
+      // action.payload is the product ID
       return state.filter((item) => item.id !== action.payload.id);
     },
-    checkout: (state) => [],
+    checkout: (state) => {
+        // Reset the cart to an empty array
+        return [];
+    },
   },
+    
 });

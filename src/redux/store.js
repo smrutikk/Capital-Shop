@@ -18,13 +18,12 @@ import AccountSlice from "../pages/Login/AccountSlice";
 const persistConfig = {
   key: "root",
   storage,
-  // whitelist: ['Cart', 'Account'] // optional
 };
 
-// Combine reducers
+// Combine reducers with lowercase keys
 const rootReducer = combineReducers({
-  Cart: CartSlice.reducer,
-  Account: AccountSlice.reducer,
+  cart: CartSlice.reducer,      // CHANGED: 'Cart' to 'cart'
+  account: AccountSlice.reducer,  // CHANGED: 'Account' to 'account'
 });
 
 // Create persisted reducer
