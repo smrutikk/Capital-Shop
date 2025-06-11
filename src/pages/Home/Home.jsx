@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 import CategoryBanner from "../../components/Category/Category";
 import Hero from "../../components/Hero/Hero";
 import Card from "../../components/Card/Card";
-import axiosClient from "../../apis/axiosClient";
+import { getProductsByCategory } from "../../services/productService";
 
 // Swiper imports
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -35,12 +35,13 @@ const Home = () => {
   }, [location.pathname]);
 
   useEffect(() => {
-    const staticCategories = [
-      { id: 1, name: "Clothes" },
-      { id: 2, name: "Men's Fashion" },
-      { id: 3, name: "Women's Fashion" },
-      { id: 4, name: "Kids' Fashion" },
-    ];
+    // In your Home component, update the staticCategories:
+const staticCategories = [
+  { id: 1, name: "All Clothing" },
+  { id: 2, name: "Men's Fashion" },
+  { id: 3, name: "Women's Fashion" },
+  { id: 4, name: "Kids' Fashion" },
+];
     setCategories(staticCategories);
     if (staticCategories.length > 0) {
       setItemActive(staticCategories[0].id);
@@ -50,12 +51,14 @@ const Home = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await axiosClient.get(
-          `categories/${itemActive}/products?offset=0&limit=10`
-        );
-        setProducts(res);
+        // Use our new service function to get the correct products
+        const res = await getProductsByCategory(itemActive); 
+        
+        // The API returns many items, let's just take the first 10 for the homepage
+        setProducts(res.slice(0, 10)); 
       } catch (error) {
         console.error("Error fetching products:", error);
+        setProducts([]); // Set to empty array on error
       }
     };
 
@@ -63,6 +66,7 @@ const Home = () => {
       fetchProducts();
     }
   }, [itemActive]);
+
 
   return (
     <div className="font-jost">

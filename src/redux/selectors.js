@@ -1,25 +1,21 @@
+// src/redux/selectors.js (Corrected)
+
 import { createSelector } from "@reduxjs/toolkit";
 
 // CHANGED: Use lowercase 'cart' and 'account' to match the store configuration
 export const cartSelector = (state) => state.cart; 
-export const loginSuccess = (state) => state.account;
+export const loginSelector = (state) => state.account; // Renamed for clarity
 
-export const quantityItem = createSelector(cartSelector, (cart) => {
-  // Added a check to ensure 'cart' is not undefined before accessing .length
-  if (!cart || cart.length === 0) {
-    return 0;
-  } else {
-    // This logic is fine, but can be simplified with .reduce
-    return cart.reduce((total, item) => total + item.quantity, 0);
-  }
+export const quantityItem = createSelector(cartSelector, (cart = []) => {
+  // Simplified logic and added a default value for safety
+  return cart.reduce((total, item) => total + item.quantity, 0);
 });
 
-export const getAllItemFromCart = createSelector(cartSelector, (cart) => {
-  // Also provide a fallback here for safety
-  return cart || [];
+export const getAllItemFromCart = createSelector(cartSelector, (cart = []) => {
+  return cart; // Return the cart, or an empty array if it's not initialized
 });
 
-export const getLoginSuccess = createSelector(loginSuccess, (account) => {
-  // It's good practice to handle the case where the account state might not be initialized
-  return account || { loginSuccess: 'false' }; // Or whatever your initial state is
+// Correctly select the loginSuccess status from the account slice
+export const getLoginSuccess = createSelector(loginSelector, (account) => {
+  return account ? account.loginSuccess : 'false';
 });

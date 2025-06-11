@@ -6,12 +6,13 @@ import { Logout } from "../../pages/Login/AccountSlice";
 import { getLoginSuccess, quantityItem } from "../../redux/selectors";
 
 // This file will be the single source of truth for your category list.
+// This file will be the single source of truth for your category list.
 export const Category = [
-    { id: 1, name: "Clothes" },
+    { id: 1, name: "All Clothing" },
     { id: 2, name: "Men's Fashion" },
     { id: 3, name: "Women's Fashion" },
     { id: 4, name: "Kids' Fashion" },
-    { id: 5, name: "Others" },
+    { id: 5, name: "Accessories" },
 ];
 
 const Header = () => {

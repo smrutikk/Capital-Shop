@@ -1,11 +1,20 @@
+// src/components/Category/Category.js (Corrected)
+// Note: Your file might be named CategoryBanner.js
+
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
+// Define the static categories with the CORRECT IDs for your app's logic
 const staticCategories = [
+  //{
+   // id: 1,
+   // name: "All Clothing",
+   // image: "https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+  //},
   {
     id: 2,
     name: "Men's Fashion",
-    image: "https://images.unsplash.com/photo-1552573102-2b44b44d85b5?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjEyMDd9",
+    image: "https://images.unsplash.com/photo-1552573102-2b44b44d85b5?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max",
   },
   {
     id: 3,
@@ -13,7 +22,7 @@ const staticCategories = [
     image: "https://images.unsplash.com/photo-1621184455862-c163dfb30e0f?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZmFzaGlvbiUyMGdpcmx8ZW58MHx8MHx8fDA%3D",
   },
   {
-    id: 1,
+    id: 4,
     name: "Kids' Fashion",
     image: "https://media.istockphoto.com/photos/beautiful-stylish-little-girl-in-denim-clothes-picture-id1342428711?b=1&k=20&m=1342428711&s=170667a&w=0&h=iGI_3TqfLueET9mlu6uMbyb880BrBQocdbIIjA_rh-0=",
   },
@@ -32,7 +41,7 @@ const CategoryBanner = () => {
           <div
             className="relative group overflow-hidden cursor-pointer aspect-[3/4]"
             key={item.id}
-            onClick={() => navigate(`/category/${item.id}`)}
+            onClick={() => navigate(`/category/${item.id}`)} // This will now navigate to the correct pages
           >
             <img
               src={item.image}
