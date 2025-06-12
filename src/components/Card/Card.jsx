@@ -5,15 +5,10 @@ import { getLoginSuccess } from "../../redux/selectors";
 import CartSlice from "../Cart/CartSlice";
 import { useEffect, useState } from "react";
 
-import { getValidImageUrls } from "../../utils/imageUtils"; // Assuming you have a utility function to validate image URLs
-
 const Card = (props) => {
   const dispatch = useDispatch();
   const LoginSuccess = useSelector(getLoginSuccess);
   const [isLiked, setIsLiked] = useState(false);
-
-  // Get the cleaned image URLs for the product
-  const validImages = getValidImageUrls(props.product.images);
 
   useEffect(() => {
     const likedProducts = JSON.parse(localStorage.getItem("likedProducts") || "[]");
@@ -62,18 +57,13 @@ const Card = (props) => {
     setIsLiked(!isLiked);
   };
 
-  const onUnlike = (id) => {
-      console.log(`Product ${id} unliked.`);
-  };
-
   return (
     <div className="rounded p-4 shadow-xl group overflow-hidden cursor-pointer h-[500px] w-full flex flex-col">
       <div className="w-full h-64 overflow-hidden relative flex-shrink-0">
         <Link to={`/product/${props.product.id}`}>
           <img
-            // Use the first valid image from our cleaned array
-            src={validImages[0]} 
-            alt={props.product.title} // Use title for alt text, it's more descriptive
+            src={props.product.images[0]}
+            alt={props.product.description}
             className="w-full h-full object-cover group-hover:scale-110 transition-all duration-700"
           />
         </Link>

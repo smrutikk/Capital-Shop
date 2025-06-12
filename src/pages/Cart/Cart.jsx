@@ -4,15 +4,12 @@ import { toast } from "react-toastify";
 import CartSlice from "../../components/Cart/CartSlice";
 import CheckoutStepper from "../../components/Checkout/CheckoutStepper";
 
-import { getValidImageUrls } from "../../utils/imageUtils";
-
 const CartPage = () => {
   document.title = "Capital Shop - Your Cart";
 
   const cartItems = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
 
   const calculateTotal = () => {
     return cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
@@ -51,16 +48,10 @@ const CartPage = () => {
           </div>
         ) : (
           <>
-            {cartItems.map((item) => {
-              const validImages = getValidImageUrls(item.images);
-              return (
+            {cartItems.map((item) => (
               <div key={item.id} className="grid grid-cols-12 gap-4 bg-white p-4 border-b border-gray-200 hover:bg-orange-50 transition-colors">
                 <div className="col-span-12 md:col-span-5 flex items-center space-x-4">
-                  <img 
-                    src={validImages[0]} // Use the cleaned URL
-                    alt={item.title} 
-                    className="w-16 h-16 object-cover rounded-md border border-gray-200"
-                  />
+                  <img src={item.images[0]} alt={item.title} className="w-16 h-16 object-cover rounded-md border border-gray-200"/>
                   <div>
                     <p className="font-medium text-gray-800">{item.title}</p>
                     <button onClick={() => {
@@ -95,7 +86,7 @@ const CartPage = () => {
                   <p className="font-medium text-gray-800">${(item.price * item.quantity).toFixed(2)}</p>
                 </div>
               </div>
-)})}
+            ))}
 
             <div className="bg-white rounded-b-lg shadow-sm p-6 mt-4">
               <div className="flex justify-end">
