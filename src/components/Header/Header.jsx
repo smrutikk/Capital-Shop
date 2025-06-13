@@ -61,8 +61,10 @@ const Header = () => {
                             </svg>
                         </div>
                         <div className="absolute hidden group-hover:block top-full left-1/2 -translate-x-1/2 bg-white shadow-lg rounded-md p-2 z-50 border w-40">
+                           <Link to="/aboutUs" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-orange-500 rounded-md">About Us</Link>
                            <Link to="/favorites" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-orange-500 rounded-md">Favorite Page</Link>
                            <Link to="/cart" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-orange-500 rounded-md">Cart Page</Link>
+                           <Link to="/faq" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-orange-500 rounded-md">FAQ</Link>
                         </div>
                     </div>
                     

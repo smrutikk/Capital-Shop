@@ -7,6 +7,8 @@ import Loader from "./components/Loader/Loader";
 import Footer from "./components/Footer/Footer";
 import Blog from "./pages/Blog/Blog";
 import Contactus from "./pages/Contact Us/Contactus";
+import AboutUs from "./pages/About Us/AboutUs";
+import FAQ from "./pages/FAQ/FAQ";
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -82,6 +84,14 @@ function App() {
             <Route
               path="/contact"
               element={ <Suspense fallback={<Loader />}><Contactus /></Suspense> }
+            />
+            <Route
+              path="/aboutUs"
+              element={ <Suspense fallback={<Loader />}><AboutUs /></Suspense> }
+            />
+            <Route
+              path="/faq"
+              element={ <Suspense fallback={<Loader />}><FAQ /></Suspense> }
             />
             
             <Route
